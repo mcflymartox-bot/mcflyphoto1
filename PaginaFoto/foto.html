@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mi Portafolio 2026 - Martín</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --color-bg: #0f0f1a;
+      --color-text: #e0e0ff;
+      --color-primary: #7b5eff;
+      --color-primary-dark: #5a3fe6;
+      --color-accent: #00f0ff;
+      --color-card: #161630;
+      --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    body {
+      background: var(--color-bg);
+      color: var(--color-text);
+      font-family: 'Inter', system-ui, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding-left: 80px; /* espacio sidebar */
+    }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    a {
+      color: var(--color-accent);
+      text-decoration: none;
+    }
+
+    /* ================= HEADER ================= */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 900;
+      padding: 1.5rem 5%;
+      background: rgba(15, 15, 26, 0.7);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(123, 94, 255, 0.12);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 900;
+      background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 3rem;
+      list-style: none;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      width: 28px;
+      height: 3px;
+      background: white;
+      border-radius: 3px;
+    }
+
+    /* ================= SIDEBAR ================= */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 80px;
+      height: 100vh;
+      background: rgba(22,22,48,0.85);
+      backdrop-filter: blur(10px);
+      border-right: 1px solid rgba(123,94,255,0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 0;
+      z-index: 1000;
+    }
+
+    .sidebar-logo {
+      font-size: 2rem;
+      font-weight: 900;
+      background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 3rem;
+    }
+
+    .sidebar-nav ul {
+      list-style: none;
+      width: 100%;
+    }
+
+    .sidebar-nav li {
+      margin: 1.5rem 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .sidebar-nav a {
+      color: var(--color-text);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .sidebar-nav a:hover {
+      color: var(--color-accent);
+      transform: scale(1.2);
+    }
+
+    .tooltip::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      left: 120%;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--color-card);
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.25s;
+    }
+
+    .tooltip:hover::after {
+      opacity: 1;
+    }
+
+    /* ================= HERO ================= */
+    #hero {
+      height: 100vh;
+      padding-top: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 15, 26, 0.65);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      padding: 0 5%;
+    }
+
+    .hero-title {
+      font-size: clamp(3.5rem, 8vw, 8rem);
+      background: linear-gradient(90deg, #fff, var(--color-primary), var(--color-accent));
+      -webkit-background-clip: text;
+      color: transparent;
+      background-size: 200% auto;
+      animation: shine 8s linear infinite;
+    }
+
+    @keyframes shine {
+      to { background-position: 200% center; }
+    }
+
+    .hero-subtitle {
+      margin: 2rem auto;
+      max-width: 600px;
+      font-size: 1.3rem;
+      opacity: 0.9;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 1rem 2.2rem;
+      background: var(--color-primary);
+      color: white;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .btn:hover {
+      background: var(--color-primary-dark);
+      transform: translateY(-4px);
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 900px) {
+      body {
+        padding-left: 0;
+      }
+
+      .sidebar {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">M</div>
+  <nav class="sidebar-nav">
+    <ul>
+      <li><a href="#hero" class="tooltip" data-tooltip="Inicio">🏠</a></li>
+      <li><a href="#about" class="tooltip" data-tooltip="Sobre mí">👤</a></li>
+      <li><a href="#projects" class="tooltip" data-tooltip="Proyectos">🧩</a></li>
+      <li><a href="#contact" class="tooltip" data-tooltip="Contacto">💬</a></li>
+    </ul>
+  </nav>
+</aside>
+
+<header>
+  <nav>
+    <div class="logo">Martín</div>
+    <ul class="nav-links">
+      <li><a href="#hero">Inicio</a></li>
+      <li><a href="#about">Sobre mí</a></li>
+      <li><a href="#projects">Proyectos</a></li>
+      <li><a href="#contact">Contacto</a></li>
+    </ul>
+    <div class="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+</header>
+
+<section id="hero">
+  <video class="hero-video" autoplay muted loop playsinline>
+    <source src="videos/bg-video.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <h1 class="hero-title">Martín</h1>
+    <p class="hero-subtitle">
+      Desarrollador Front-End / Creativo Digital / Amante del diseño que cobra vida con código
+    </p>
+    <a href="#projects" class="btn">Ver mis proyectos →</a>
+  </div>
+</section>
+
+<script>
+  const hamburger = document.querySelector('.hamburger');
+  const sidebar = document.querySelector('.sidebar');
+
+  hamburger.addEventListener('click', () => {
+    sidebar.classList.toggle('active');
+  });
+</script>
+
+</body>
+</html>
+
